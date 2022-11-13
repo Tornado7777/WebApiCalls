@@ -23,6 +23,7 @@ using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace WebApiCalls
 {
@@ -125,6 +126,25 @@ namespace WebApiCalls
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(setup =>
             {
+                setup.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "API сервиса учета контактов и звонков",
+                    Description = "API сервиса учета контактов и звонков",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Ivan",
+                        Email = string.Empty,
+                        Url = new Uri("https://nn.hh.ru/resume/83aa3383ff09d42d850039ed1f7247336c6664?hhtmFrom=resume_list"),
+                    },
+                    
+                });
+
+                //Set the comments path for the swagger json and ui.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                setup.IncludeXmlComments(xmlPath);
                 // Include 'SecurityScheme' to use JWT Authentication
                 var jwtSecurityScheme = new OpenApiSecurityScheme
                 {
@@ -152,9 +172,7 @@ namespace WebApiCalls
 
 
                  
-                //Set the comments path for the swagger json and ui.
-                var xmlPath = "swagger.xml";
-                setup.IncludeXmlComments(xmlPath);
+                
             });
 
 

@@ -52,7 +52,7 @@ namespace WebApiCalls.Controllers
 
         #region Public Methods
 
-        [HttpPost("create")]
+        [HttpPut("create")]
         [ProducesResponseType(typeof(IDictionary<string, string[]>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CallDto), StatusCodes.Status200OK)]
         public ActionResult<int> Create([FromBody] CreateCallRequest request)

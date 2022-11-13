@@ -37,8 +37,7 @@ namespace WebApiCalls.Controllers
         /// <summary>
         /// Authorization by phone number
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns>A newly created TodoItem</returns>
+        /// <returns></returns>
         /// <remarks>
         /// Sample request:
         ///
@@ -64,7 +63,7 @@ namespace WebApiCalls.Controllers
             if (authenticationResponse.Status == AuthenticationStatus.Success)
             {
                 Response.Headers.Add("X-Session-Token", authenticationResponse.Session.SessionToken);
-                Response.Headers.Authorization = authenticationResponse.Session.SessionToken;
+                //Response.Headers.WWWAuthenticate = authenticationResponse.Session.SessionToken;
             }
             return Ok(authenticationResponse);
         }

@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 namespace WebApiCalls.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ContactController : ControllerBase
@@ -43,7 +43,7 @@ namespace WebApiCalls.Controllers
 
         #region Public Methods
 
-        [HttpPost("create")]
+        [HttpPut("create")]
         public ActionResult<int> Create([FromBody] CreateContactRequest request)
         {
             return Ok(_contactRepository.Create(new Contact
@@ -53,7 +53,8 @@ namespace WebApiCalls.Controllers
                 Company = request.Company,
                 Description = request.Description,                
             }
-            ));        }
+            ));       
+        }
 
         [HttpGet("all")]
         public ActionResult<IQueryable<ContactDto>> GetAllDepartments()
