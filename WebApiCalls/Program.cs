@@ -120,6 +120,22 @@ namespace WebApiCalls
 
             #endregion
 
+            #region  CORS
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: "MyPolicy",
+            //                policy =>
+            //                {
+            //                    policy.WithOrigins(
+            //                        "http://localhost:3000",
+            //                        "http://localhost:5000")
+            //                            .WithMethods("PUT", "DELETE", "GET", "POST")
+            //                            .SetIsOriginAllowedToAllowWildcardSubdomains()
+            //                            .AllowAnyHeader();
+            //                });
+            //});
+            #endregion
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -186,6 +202,7 @@ namespace WebApiCalls
             }
 
             app.UseRouting();
+            //app.UseCors();
             app.UseAuthentication();
 
 

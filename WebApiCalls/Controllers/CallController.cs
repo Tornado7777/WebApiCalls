@@ -15,10 +15,12 @@ using System.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using Newtonsoft.Json;
 using System;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebApiCalls.Controllers
 {
     [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class CallController : ControllerBase
@@ -57,21 +59,31 @@ namespace WebApiCalls.Controllers
         [ProducesResponseType(typeof(CallDto), StatusCodes.Status200OK)]
         public ActionResult<int> Create([FromBody] CreateCallRequest request)
         {
-            var jwt = HttpContext.Request.Headers["Authorization"].ToString().Split(' ');
-            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            var res = tokenHandler.ReadToken(jwt[1]);
-            string contactIdString = res.ToString()
-                .Replace('.', ' ')
-                .Replace(',', ' ')
-                .Replace('}', ' ')
-                .Replace('{', ' ')
-                .Replace('"', ' ')
-                .Replace(':', ' ')
-                .Replace("   ", " ")
-                .Replace("  ", " ")
-                .Split("ContactId ")[1]
-                .Split(' ')[0];
-            int fromId = int.Parse(contactIdString);
+            int fromId = 0;
+            //try
+            //{
+            //    var jwt = HttpContext.Request.Headers["Authorization"].ToString().Split(' ');
+            //    JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            //    var res = tokenHandler.ReadToken(jwt[1]);
+            //    string contactIdString = res.ToString()
+            //        .Replace('.', ' ')
+            //        .Replace(',', ' ')
+            //        .Replace('}', ' ')
+            //        .Replace('{', ' ')
+            //        .Replace('"', ' ')
+            //        .Replace(':', ' ')
+            //        .Replace("   ", " ")
+            //        .Replace("  ", " ")
+            //        .Split("ContactId ")[1]
+            //        .Split(' ')[0];
+            //    fromId = int.Parse(contactIdString);
+            //} 
+            //catch (exeption)
+            //{
+            //    //throw new Exception('Is not find ContactId from token');
+
+            //}
+            
             
 
 
@@ -84,6 +96,12 @@ namespace WebApiCalls.Controllers
 
             if (fromId == toId)
                 return BadRequest("Doesn't call himself");
+
+            if (fromId == 0)
+            {
+                fromId = _contactRepository.FindIdPhone(request.FromPhone);
+            }
+                
 
             _callRepository.Create(new Call
             {

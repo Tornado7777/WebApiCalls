@@ -7,7 +7,7 @@ namespace WebApiCalls.Models.Requests
 {
     public class CreateCallRequest
     {
-        //public string FromPhone { get; set; }
+        public string FromPhone { get; set; }
 
         public string ToPhone { get; set; }
 

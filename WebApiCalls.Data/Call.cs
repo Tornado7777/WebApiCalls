@@ -17,18 +17,21 @@ namespace WebApiCalls.Data
         public int CallId { get; set; }
 
         [ForeignKey(nameof(FromContacts))]
-
+        [Required]
         public int FromId { get; set; }
         public virtual Contact FromContacts { get; set; }
 
         [ForeignKey(nameof(ToContacts))]
+        [Required]
         public int ToId { get; set; }
         public virtual Contact ToContacts { get; set; }
 
         [Column(TypeName = "timestamp")]
+        [Required]
         public DateTime TimeStart { get; set; }
 
         [Column(TypeName = "timestamp")]
+        [Required] 
         public DateTime TimeEnd { get; set; }
 
         
